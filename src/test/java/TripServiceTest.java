@@ -19,14 +19,11 @@ public class TripServiceTest {
 
     private TripRepository tripRepository;
     private UserSession userSession;
-    private User loggedUser;
 
     @Before
     public void setup_testing_environment() {
-        // Setup testing environment
         tripRepository = mock(TripRepository.class);
         userSession = mock(UserSession.class);
-        loggedUser = mock(User.class);
     }
 
     @Test(expected = UserNotLoggedInException.class)
@@ -38,7 +35,7 @@ public class TripServiceTest {
 
     @Test
     public void do_not_return_any_trip_for_a_user_that_is_not_friend_of_logged_user() {
-        when(userSession.getLoggedUser()).thenReturn(loggedUser);
+        when(userSession.getLoggedUser()).thenReturn(new User());
         TripService tripService = new TripService(userSession, tripRepository);
 
         List<Trip> response = tripService.getTripsByUser(new User());
@@ -48,6 +45,7 @@ public class TripServiceTest {
 
     @Test
     public void returns_the_trip_for_a_user_that_is_friend_of_logged_user() {
+        User loggedUser = new User();
         when(userSession.getLoggedUser()).thenReturn(loggedUser);
         User user = new User();
         user.addFriend(loggedUser);
