@@ -61,15 +61,9 @@ public class TripServiceTest {
     public void returns_the_trip_for_a_user_that_is_friend_of_logged_user() {
         // The user is friend of logged user
         when(paramUser.getFriends()).thenReturn(Arrays.asList(loggedUser));
-
-        // Mock TripRepository's operations
-        List<Trip> tripList = new ArrayList<>();
-        {
-            tripList.add(new Trip());
-        }
-        when(tripRepository.findTrips(paramUser)).thenReturn(tripList);
-
-        // Mock userSession's operation
+        List<Trip> trips = Arrays.asList(new Trip());
+        when(tripRepository.findTrips(paramUser)).thenReturn(trips);
+        // The user is friend of logged user
         when(userSession.getLoggedUser()).thenReturn(loggedUser);
 
         // Call TripService's method
