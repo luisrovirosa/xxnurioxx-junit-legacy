@@ -53,7 +53,7 @@ public class TripServiceTest {
         User user = new User();
         user.addFriend(loggedUser);
         List<Trip> trips = Arrays.asList(new Trip());
-        when(tripRepository.findTrips(user)).thenReturn(trips);
+        when(tripRepository.findTrips(any(User.class))).thenReturn(trips);
         TripService tripService = new TripService(userSession, tripRepository);
 
         List<Trip> response = tripService.getTripsByUser(user);
