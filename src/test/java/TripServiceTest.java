@@ -41,16 +41,12 @@ public class TripServiceTest {
 
     @Test
     public void do_not_return_any_trip_for_a_user_that_is_not_friend_of_logged_user() {
-        // There is a logged user
         when(userSession.getLoggedUser()).thenReturn(loggedUser);
-        // The user is not friend of logged user
         when(paramUser.getFriends()).thenReturn(new ArrayList<User>());
         TripService tripService = new TripService(userSession, tripRepository);
 
-        // Act
         List<Trip> response = tripService.getTripsByUser(paramUser);
 
-        // It cannot access to the user's trips
         assertTrue(response.isEmpty());
     }
 
