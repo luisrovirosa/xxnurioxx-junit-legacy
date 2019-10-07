@@ -36,7 +36,7 @@ public class TripServiceTest {
     @Test
     public void do_not_return_any_trip_for_a_user_that_is_not_friend_of_logged_user() {
         User loggedUser = new User();
-        when(userSession.getLoggedUser()).thenReturn(loggedUser);
+        loggedAs(loggedUser);
         User user = new User();
         List<Trip> trips = Arrays.asList(new Trip());
         when(tripRepository.findTrips(user)).thenReturn(trips);
@@ -50,7 +50,7 @@ public class TripServiceTest {
     @Test
     public void returns_the_trip_for_a_user_that_is_friend_of_logged_user() {
         User loggedUser = new User();
-        when(userSession.getLoggedUser()).thenReturn(loggedUser);
+        loggedAs(loggedUser);
         User user = new User();
         user.addFriend(loggedUser);
         List<Trip> trips = Arrays.asList(new Trip());
@@ -60,6 +60,10 @@ public class TripServiceTest {
         List<Trip> response = tripService.getTripsByUser(user);
 
         assertEquals(trips, response);
+    }
+
+    private void loggedAs(User loggedUser) {
+        when(userSession.getLoggedUser()).thenReturn(loggedUser);
     }
 
 }
