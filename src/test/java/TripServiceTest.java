@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -65,13 +64,13 @@ public class TripServiceTest {
         when(tripRepository.findTrips(paramUser)).thenReturn(trips);
         // The user is friend of logged user
         when(userSession.getLoggedUser()).thenReturn(loggedUser);
+        TripService tripService = new TripService(userSession, tripRepository);
 
         // Call TripService's method
-        TripService tripService = new TripService(userSession, tripRepository);
         List<Trip> response = tripService.getTripsByUser(paramUser);
 
         // Assert response was a empty list
-        assertFalse(response.isEmpty());
+        assertEquals(trips, response);
     }
 
 }
