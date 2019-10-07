@@ -20,7 +20,6 @@ public class TripServiceTest {
     private TripRepository tripRepository;
     private UserSession userSession;
     private User loggedUser;
-    private User paramUser;
 
     @Before
     public void setup_testing_environment() {
@@ -28,7 +27,6 @@ public class TripServiceTest {
         tripRepository = mock(TripRepository.class);
         userSession = mock(UserSession.class);
         loggedUser = mock(User.class);
-        paramUser = mock(User.class);
     }
 
     @Test(expected = UserNotLoggedInException.class)
