@@ -42,7 +42,7 @@ public class TripServiceTest {
     }
 
     @Test
-    public void user_without_friends_do_not_return_any_trip() {
+    public void do_not_return_any_trip_for_a_user_that_is_not_friend_of_logged_user() {
         // Mock userSession's operation
         when(userSession.getLoggedUser()).thenReturn(loggedUser);
 
