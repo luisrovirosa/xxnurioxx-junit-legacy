@@ -8,6 +8,7 @@ import team.codium.legacycode.tripservice.user.User;
 import team.codium.legacycode.tripservice.user.UserSession;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -59,10 +60,7 @@ public class TripServiceTest {
     @Test
     public void returns_the_trip_for_a_user_that_is_friend_of_logged_user() {
         // The user is friend of logged user
-        List<User> friendList = new ArrayList<>();
-        {
-            friendList.add(loggedUser);
-        }
+        List<User> friendList = Arrays.asList(loggedUser);
         when(paramUser.getFriends()).thenReturn(friendList);
 
         // Mock TripRepository's operations
