@@ -7,11 +7,12 @@ import team.codium.legacycode.tripservice.trip.TripService;
 import team.codium.legacycode.tripservice.user.User;
 import team.codium.legacycode.tripservice.user.UserSession;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,14 +36,12 @@ public class TripServiceTest {
 
     @Test
     public void do_not_return_any_trip_for_a_user_that_is_not_friend_of_logged_user() {
-        User loggedUser = new User();
-        loggedAs(loggedUser);
-        User user = new User();
-        List<Trip> trips = Arrays.asList(new Trip());
-        when(tripRepository.findTrips(user)).thenReturn(trips);
+        loggedAs(new User());
+        when(tripRepository.findTrips(any(User.class)))
+                .thenReturn(Arrays.asList(new Trip()));
         TripService tripService = new TripService(userSession, tripRepository);
 
-        List<Trip> response = tripService.getTripsByUser(user);
+        List<Trip> response = tripService.getTripsByUser(new User());
 
         assertTrue(response.isEmpty());
     }
