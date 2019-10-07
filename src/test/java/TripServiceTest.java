@@ -60,8 +60,7 @@ public class TripServiceTest {
     @Test
     public void returns_the_trip_for_a_user_that_is_friend_of_logged_user() {
         // The user is friend of logged user
-        List<User> friendList = Arrays.asList(loggedUser);
-        when(paramUser.getFriends()).thenReturn(friendList);
+        when(paramUser.getFriends()).thenReturn(Arrays.asList(loggedUser));
 
         // Mock TripRepository's operations
         List<Trip> tripList = new ArrayList<>();
