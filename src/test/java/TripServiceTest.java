@@ -57,7 +57,7 @@ public class TripServiceTest {
     }
 
     @Test
-    public void user_with_friends_returns_a_trip_list() {
+    public void returns_the_trip_for_a_user_that_is_friend_of_logged_user() {
         // Mock loggedUser's operation
         List<User> friendList = new ArrayList<>();
         {
