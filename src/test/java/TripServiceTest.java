@@ -58,7 +58,7 @@ public class TripServiceTest {
 
     @Test
     public void returns_the_trip_for_a_user_that_is_friend_of_logged_user() {
-        // Mock loggedUser's operation
+        // The user is friend of logged user
         List<User> friendList = new ArrayList<>();
         {
             friendList.add(loggedUser);
