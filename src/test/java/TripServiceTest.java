@@ -1,4 +1,4 @@
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import team.codium.legacycode.tripservice.exception.UserNotLoggedInException;
 import team.codium.legacycode.tripservice.trip.Trip;
@@ -10,18 +10,29 @@ import team.codium.legacycode.tripservice.user.UserSession;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TripServiceTest {
 
+    private TripRepository tripRepository;
+    private UserSession userSession;
+    private User loggedUser;
+    private User paramUser;
+
+    @Before
+    public void setup_testing_environment() {
+        // Setup testing environment
+        tripRepository = mock(TripRepository.class);
+        userSession = mock(UserSession.class);
+        loggedUser = mock(User.class);
+        paramUser = mock(User.class);
+    }
+
     @Test(expected = UserNotLoggedInException.class)
     public void not_logged_user_throws_exception() {
-        // Setup testing environment
-        TripRepository tripRepository = mock(TripRepository.class);
-        UserSession userSession = mock(UserSession.class);
-        User paramUser = mock(User.class);
-
         // Mock userSession's operation
         when(userSession.getLoggedUser()).thenReturn(null);
 
@@ -32,12 +43,6 @@ public class TripServiceTest {
 
     @Test
     public void user_without_friends_do_not_return_any_trip() {
-        // Setup testing environment
-        TripRepository tripRepository = mock(TripRepository.class);
-        UserSession userSession = mock(UserSession.class);
-        User paramUser = mock(User.class);
-        User loggedUser = mock(User.class);
-
         // Mock userSession's operation
         when(userSession.getLoggedUser()).thenReturn(loggedUser);
 
@@ -49,17 +54,11 @@ public class TripServiceTest {
         List<Trip> response = tripService.getTripsByUser(paramUser);
 
         // Assert response was a empty list
-        Assert.assertTrue(response.isEmpty());
+        assertTrue(response.isEmpty());
     }
 
     @Test
     public void user_with_friends_returns_a_trip_list() {
-        // Setup testing environment
-        TripRepository tripRepository = mock(TripRepository.class);
-        UserSession userSession = mock(UserSession.class);
-        User paramUser = mock(User.class);
-        User loggedUser = mock(User.class);
-
         // Mock loggedUser's operation
         List<User> friendList = new ArrayList<>();
         {
@@ -82,7 +81,7 @@ public class TripServiceTest {
         List<Trip> response = tripService.getTripsByUser(paramUser);
 
         // Assert response was a empty list
-        Assert.assertFalse(response.isEmpty());
+        assertFalse(response.isEmpty());
     }
 
 }
