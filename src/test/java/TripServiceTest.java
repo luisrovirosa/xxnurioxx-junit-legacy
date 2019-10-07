@@ -42,10 +42,9 @@ public class TripServiceTest {
     @Test
     public void do_not_return_any_trip_for_a_user_that_is_not_friend_of_logged_user() {
         when(userSession.getLoggedUser()).thenReturn(loggedUser);
-        when(paramUser.getFriends()).thenReturn(new ArrayList<User>());
         TripService tripService = new TripService(userSession, tripRepository);
 
-        List<Trip> response = tripService.getTripsByUser(paramUser);
+        List<Trip> response = tripService.getTripsByUser(new User());
 
         assertTrue(response.isEmpty());
     }
