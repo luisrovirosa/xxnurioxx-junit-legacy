@@ -52,18 +52,14 @@ public class TripServiceTest {
 
     @Test
     public void returns_the_trip_for_a_user_that_is_friend_of_logged_user() {
-        // The user is friend of logged user
         when(userSession.getLoggedUser()).thenReturn(loggedUser);
-        // The user is friend of logged user
         when(paramUser.getFriends()).thenReturn(Arrays.asList(loggedUser));
         List<Trip> trips = Arrays.asList(new Trip());
         when(tripRepository.findTrips(paramUser)).thenReturn(trips);
         TripService tripService = new TripService(userSession, tripRepository);
 
-        // Call TripService's method
         List<Trip> response = tripService.getTripsByUser(paramUser);
 
-        // Assert response was a empty list
         assertEquals(trips, response);
     }
 
