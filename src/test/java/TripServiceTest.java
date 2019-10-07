@@ -33,7 +33,6 @@ public class TripServiceTest {
 
     @Test(expected = UserNotLoggedInException.class)
     public void not_logged_user_throws_exception() {
-        when(userSession.getLoggedUser()).thenReturn(null);
         TripService tripService = new TripService(userSession, tripRepository);
 
         tripService.getTripsByUser(new User());
